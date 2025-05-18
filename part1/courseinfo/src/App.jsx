@@ -1,11 +1,13 @@
 const Header = ({course})=> <h1>{course}</h1>
 
+const Part = ({part, exercise})=> <p>{part} {exercise}</p>
+
 const Content = ({p1, p2, p3, ex1, ex2, ex3})=> {
   return (
     <div>
-      <p>{p1} {ex1}</p>
-      <p>{p2} {ex2}</p>
-      <p>{p3} {ex3}</p>
+      <Part part={p1} exercise={ex1} />
+      <Part part={p2} exercise={ex2} />
+      <Part part={p3} exercise={ex3} />
     </div>
   )
 }
