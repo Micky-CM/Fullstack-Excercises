@@ -9,6 +9,10 @@ const Statistics = ({good, neutral, bad})=> {
   const average = total === 0 ? 0 : (good - bad) / total
   const positive = total === 0 ? 0 : (good * 100) / total
 
+  if (total === 0) {
+    return <p>No feedback given</p>
+  }
+
   return (
     <>
       <StatisticParagraph text="Good: " value={good} />
