@@ -4,14 +4,28 @@ const Button = ({onClick, text})=> <button onClick={onClick}>{text}</button>
 
 const StatisticParagraph = ({text, value})=> <div>{text} {value}</div>
 
+const Statistics = ({good, neutral, bad})=> {
+  const total = good + neutral + bad
+  const average = total === 0 ? 0 : (good - bad) / total
+  const positive = total === 0 ? 0 : (good * 100) / total
+
+  return (
+    <>
+      <StatisticParagraph text="Good: " value={good} />
+      <StatisticParagraph text="Neutral: " value={neutral} />
+      <StatisticParagraph text="Bad: " value={bad} />
+      <br />
+      <StatisticParagraph text="Average: " value={average} />
+      <StatisticParagraph text="Positive: " value={positive + ' %'} />
+    </>
+  )
+}
+
 const App = ()=> {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const total = good + neutral + bad
-  const average = total === 0 ? 0 : (good - bad) / total
-  const positive = total === 0 ? 0 : (good * 100) / total
 
   return (
     <>
@@ -21,12 +35,7 @@ const App = ()=> {
       <Button onClick={()=> setBad(bad + 1)} text="bad" />
 
       <h2>Statistics</h2>
-      <StatisticParagraph text="Good: " value={good} />
-      <StatisticParagraph text="Neutral: " value={neutral} />
-      <StatisticParagraph text="Bad: " value={bad} />
-
-      <StatisticParagraph text="Average: " value={average} />
-      <StatisticParagraph text="Positive: " value={positive + ' %'} />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </>
   )
 }
