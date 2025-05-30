@@ -40,12 +40,22 @@ const App = ()=> {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
       }
     ]
   }
 
+  const total = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises
+
   return (
-    <Course course={course} />
+    <>
+      <Course course={course} />
+      <p><strong>Total of {total} exercises</strong></p>
+    </>
   )
 }
 
