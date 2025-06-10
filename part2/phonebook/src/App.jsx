@@ -10,10 +10,20 @@ const App = () => {
 
   const addPerson = (event)=> {
     event.preventDefault()
-    const newPerson = {
-      name: newName
+
+    const nameExists = persons.some(
+      person => person.name.toLowerCase() === newName.trim().toLowerCase()
+    )
+
+    if (nameExists) {
+      alert(`${newName} is already added to phonebook`)
     }
-    setPersons([...persons, newPerson])
+    else {
+      const newPerson = {
+        name: newName
+      }
+      setPersons([...persons, newPerson])
+    }
     setNewName('')
   }
 
