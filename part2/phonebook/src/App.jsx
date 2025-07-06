@@ -31,16 +31,20 @@ const App = () => {
     if (nameExists) {
       alert(`${newName} is already added to phonebook`)
     } else if (numberExist) {
-      alert(`${newNumber} is already used by another contanct`)
+      alert(`${newNumber} is already used by another contact`)
     } else {
       const newPerson = {
         name: newName,
         number: newNumber
       }
-      setPersons([...persons, newPerson])
+      axios
+      .post('http://localhost:3001/persons', newPerson)
+      .then(response => {
+        setPersons([...persons, response.data])
+        setNewName('')
+        setNewNumber('')
+      })
     }
-    setNewName('')
-    setNewNumber('')
   }
 
   const filteredPersons = persons.filter(
