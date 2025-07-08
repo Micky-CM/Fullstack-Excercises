@@ -19,23 +19,38 @@ const App = () => {
   const addPerson = (event)=> {
     event.preventDefault()
 
-    const nameExists = persons.some(
+    const existingPerson = persons.find(
       person => person.name.toLowerCase() === newName.trim().toLowerCase()
     )
     const numberExist = persons.some(
       person => person.number === newNumber.trim()
     )
 
-    if (nameExists) {
-      alert(`${newName} is already added to phonebook`)
+    if (existingPerson) {
+      if (existingPerson.number !== newNumber.trim()){
+        if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+          const updatedPerson = {
+            ...existingPerson,
+            number: newNumber.trim()
+          }
+          contactService.update(existingPerson.id, updatedPerson).then(returnedPerson => {
+            setPersons(persons.map(person =>
+              person.id !== existingPerson.id ? person: returnedPerson
+            ))
+            setNewName('')
+            setNewNumber('')
+          })
+        }
+      } else {
+        alert(`${newName} with number ${newNumber} is already added to phonebook`)
+      }
     } else if (numberExist) {
       alert(`${newNumber} is already used by another contact`)
-    } else {
+    }else {
       const newPerson = {
         name: newName,
         number: newNumber
       }
-
       contactService.create(newPerson).then(returnedPerson => {
         setPersons([...persons, returnedPerson])
         setNewName('')
