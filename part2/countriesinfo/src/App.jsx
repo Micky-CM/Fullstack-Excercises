@@ -28,11 +28,15 @@ const App = ()=> {
     setSearch(e.target.value)
   }
 
+  const showCountry = (nameCountry) => {
+    setSearch(nameCountry)
+  }
+
   return (
     <>
       <h1>Countries Info</h1>
       <Filter search={search} handleChange={handleChange} />
-      <FilteredCountries filtered={filtered} />
+      <FilteredCountries filtered={filtered} showCountry={showCountry} />
     </>
   )
 }

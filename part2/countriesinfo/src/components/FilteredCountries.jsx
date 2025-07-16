@@ -1,6 +1,6 @@
 import CountryDetails from "./CountryDetails"
 
-const FilteredCountries = ({ filtered }) => {
+const FilteredCountries = ({ filtered, showCountry }) => {
   return (
     <div>
       { filtered.length > 10 && <span>To many matches, specify another filter</span> }
@@ -9,6 +9,7 @@ const FilteredCountries = ({ filtered }) => {
           {filtered.map(country => (
             <li key={country.cca3}>
               {country.name.common}
+              <button onClick={()=> showCountry(country.name.common)}>Show</button>
             </li>
           ))}
         </ul>
